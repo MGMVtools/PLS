@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>MV001 PLS</title>
+        <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="jvs.js"></script>
+    </head>
+
+  <body>
+
+          <div class="sidenav">
+            <a onclick="hideElementsExceptX('RPabout')">About</a>
+            <a onclick="hideElementsExceptX('RPsettings')">Settings</a>
+            <a onclick="hideElementsExceptX('RPdata')">Data</a>
+              <br>
+          <a onclick="showAllElements()">Show all</a>
+              
+          </div>
+
+      
+       <div class="rightPanel displayed" id="RPabout" >
+              <h1> About</h1>
+           <a> This is an online tool developped by Miguel Gonçalves so that anyone can use the Partial Least Squares algorithm (Herman Wold, "Partial Least Squares") without needing to install any software. <br/>This tool can be used for educational porposes, testing, or developping at free will. Regarding that the due credit is provided.
+           <br/>
+               Click on <button class="buttonsLink" type="button" onclick="hideElementsExceptX('RPsettings')"> Settings </button> to provide the nessary information for model creation.
+           
+           </a>
+      </div>
+    
+      
+      
+      
+      
+      
+      <div class="rightPanel displayed" id="RPsettings" >
+          <h1> Settings</h1>
+          <a>Please fill all the necessary data settings</a>
+          
+                    <form><br> 
+                        Number of Latent variables (keep this number below the number of observations):<input type="number" id="LVinput" value=4>
+                        <br>
+                        <br>Pre-processing (only mean centering available):
+                        <select>
+                          <option value="mean" id="preproOption">Mean-centering</option>
+                        </select><br>
+
+              
+          </form>
+          <a><br/>Click on <button class="buttonsLink" type="button" onclick="hideElementsExceptX('RPdata')"> Data </button> and paste the data values</a>
+      </div>
+    
+      
+      <div class="rightPanel displayed" id="RPdata">
+              <h1>Data</h1> <a><button type="button" onclick="getDataFromScreen()">Calculate vectors</button></a>
+          <br><br><a>Provide X data below:</a><br>
+          <textarea placeholder="Paste X data here. Rows are observations (or samples), collumns are measurements (or wavelength). Collumns should be seperated by tabs and rows by linebreks." rows="10" cols="5" id="spectralData">3	3	45	4	4	5
+3	4	3	5	5	4
+4	4	2	5	4	2
+3	4	4	5	6	43
+3	4	5	6	4	5
+</textarea><br><a>Provide Y data below:</a><br>
+                    <textarea placeholder="Paste Y data here. Values should be seperated by linebreaks" rows="10" cols="5" id="YData">1
+2
+3
+4
+5
+</textarea>
+          
+          
+          
+      </div>
+            <div id="footer">
+              <a> Miguel Gonçalves 2019-Dec-27</a>
+          </div>
+  </body>
+
+</html>

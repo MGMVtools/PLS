@@ -1,0 +1,80 @@
+
+
+/* bottom of page, date*/
+
+
+#footer{    
+    position: fixed;
+    left:0px;
+    bottom:0px;
+    width:100%;
+    text-align: center;
+}
+
+/*container for sidenav and content*/
+.container{
+    width:100%;
+    padding:0;
+    margin:0;
+    left:px;
+    display: inline-block;
+}
+
+/* The sidebar menu code from: 
+https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 10%; /* Set the width of the sidebar */
+    position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px; 
+  
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 2vw;
+  color: #818181;
+    display: block;
+}
+
+
+
+
+
+
+/*right side of panel*/
+.rightPanel{
+    background-color: white;
+    margin-left:11%;
+    position:relative;
+    width:90%;
+    float:left;
+    display: none;
+    top: 10px;
+
+}
+.rightPanel.displayed{
+    display:block;
+}
+
+/*for buttons to links*/
+.buttonsLink{
+    color:blue;
+    background-color: transparent;
+    border:none;
+    
+}
+/*text area for pasting data*/
+textarea{
+    width:80%;
+    height:40%;
+    
+}
+
