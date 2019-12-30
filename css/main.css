@@ -44,6 +44,11 @@ https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
     display: block;
 }
 
+.sidenav a:hover{
+	background-color: darkgrey;
+	color:white;
+}
+
 
 
 
