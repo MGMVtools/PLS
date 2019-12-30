@@ -22,7 +22,7 @@
       
        <div class="rightPanel displayed" id="RPabout" >
               <h1> About</h1>
-           <a> This is an online tool developped by Miguel Gonçalves so that anyone can use the Partial Least Squares algorithm (Herman Wold, "Partial Least Squares") without needing to install any software. <br/>This tool can be used for educational porposes, testing, or developping at free will. Regarding that the due credit is provided.
+           <a> This is an online tool developed so that anyone can use the Partial Least Squares algorithm (developed by Herman Wold, "Partial Least Squares") without needing to install any software. <br/>This tool can be used for educational porposes, testing, or developping computer software at free will, regarding that due credit is provided. <br/> This website does not collect any third or second party data, neither do I (the author) collect or get access to any data. The code is run using your browser built-in javascript interpreter and no data is upload to any server. Use this tool at your responsability, I will not be  held responsible for any problem encountered with the code. The most important step in any data analysis technique is to interpret the results and check if their validity.<br/> Nevertheless, if you find anything that needs to be fixed, or any suggestion that you would like to make, or simply tell me about your usage of this tool, please contact me so that I can correct any mistake/bug, or implement a new solution, or simply that I can know that what I built cna be useful.
            <br/>
                Click on <button class="buttonsLink" type="button" onclick="hideElementsExceptX('RPsettings')"> Settings </button> to provide the nessary information for model creation.
            
@@ -42,8 +42,9 @@
                         Number of Latent variables (keep this number below the number of observations):<input type="number" id="LVinput" value=4>
                         <br>
                         <br>Pre-processing (only mean centering available):
-                        <select>
-                          <option value="mean" id="preproOption">Mean-centering</option>
+                        <select id="preproOption">
+                          <option value="mean">Mean-centering</option>
+                            <option value="auto">Auto-scale</option>
                         </select><br>
 
               
@@ -61,7 +62,7 @@
 3	4	4	5	6	43
 3	4	5	6	4	5
 </textarea><br><a>Provide Y data below:</a><br>
-                    <textarea placeholder="Paste Y data here. Values should be seperated by linebreaks" rows="10" cols="5" id="YData">1
+                    <textarea placeholder="Paste Y data here. Values should be seperated by linebreaks." rows="10" cols="5" id="YData">1
 2
 3
 4
@@ -72,7 +73,7 @@
           
       </div>
             <div id="footer">
-              <a> Miguel Gonçalves 2019-Dec-27</a>
+              <a> Miguel Gonçalves, fergonsil1@gmail.com, 2019-Dec-30</a>
           </div>
   </body>
 
