@@ -1,3 +1,5 @@
+
+
 body{
 	/*height:1000vh;*/
 	margin:0px;
@@ -9,7 +11,6 @@ body{
 	height:100vh;
 	margin-bottom: 0px;
 	font-size:16px;
-	z-index:-2;
 }
 
 
@@ -21,7 +22,7 @@ body{
     width:100%;
     text-align: center;
 	background-color: white;
-	z-index:-1;
+	z-index:1;
 }
 
 /* The sidebar menu code from: 
@@ -40,7 +41,8 @@ https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
 	margin-bottom:0px;
 	/*min-width:200px;*/
 	bottom:0px
-	z-index: 1;
+		position:fixed;
+	z-index: 10;
 
   
 }
@@ -75,9 +77,9 @@ https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
 	margin-left: 30px;
     top: 10px;
 	display:block;
-	z-index:-1;
-
 }
+
+
 .rightPanel.displayed{
     /*display:block;*/
 }
@@ -89,6 +91,7 @@ https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
     border:none;
 	font-size:20px;
 	font-style:italic;
+	border:2px;
     
 }
 /*text area for pasting data*/
@@ -96,7 +99,6 @@ textarea {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-
     width: 100%;
 }
 

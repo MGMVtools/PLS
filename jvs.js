@@ -1,8 +1,10 @@
 //code for page display
 function hideElementsExceptX(elem) {
+	debugger
     let elemrightPanel = document.getElementsByClassName("rightPanel");
 	let childelem = elemrightPanel[0].children;
     for (let i = 0; i < childelem.length; i++) {
+		debugger
         if (childelem[i].id !== elem) {
             childelem[i].style.display = "none";
         } else {
