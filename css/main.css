@@ -1,37 +1,47 @@
+body{
+	/*height:1000vh;*/
+	margin:0px;
+	display:grid;
+	grid-template-columns: 10% 1fr;
+	grid-template-rows: 1fr;
+	grid-template-areas: "box1 box2";
+	overflow: auto;
+	height:100vh;
+	margin-bottom: 0px;
+	font-size:16px;
+	z-index:-2;
+}
 
 
 /* bottom of page, date*/
-
-
 #footer{    
     position: fixed;
     left:0px;
     bottom:0px;
     width:100%;
     text-align: center;
-}
-
-/*container for sidenav and content*/
-.container{
-    width:100%;
-    padding:0;
-    margin:0;
-    left:px;
-    display: inline-block;
+	background-color: white;
+	z-index:-1;
 }
 
 /* The sidebar menu code from: 
 https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
 .sidenav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 10%; /* Set the width of the sidebar */
-    position: absolute; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
+    /*width: 10%; /* Set the width of the sidebar */
+    /*position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    /*z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
     background-color: #111; /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    /*overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px; 
+	grid-area: box1;
+	margin-bottom:0px;
+	/*min-width:200px;*/
+	bottom:0px
+	z-index: 1;
+
   
 }
 
@@ -53,33 +63,40 @@ https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
 
 
 
-
 /*right side of panel*/
 .rightPanel{
     background-color: white;
-    margin-left:11%;
-    position:relative;
-    width:90%;
+    /*margin-left:11%;*/
+    /*position:relative;
+    /*width:90%;*/
     float:left;
-    display: none;
+    /*display: none;*/
+	margin-right:100px;
+	margin-left: 30px;
     top: 10px;
+	display:block;
+	z-index:-1;
 
 }
 .rightPanel.displayed{
-    display:block;
+    /*display:block;*/
 }
 
 /*for buttons to links*/
 .buttonsLink{
-    color:blue;
+    color:grey;
     background-color: transparent;
     border:none;
+	font-size:20px;
+	font-style:italic;
     
 }
 /*text area for pasting data*/
-textarea{
-    width:80%;
-    height:40%;
-    
+textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    width: 100%;
 }
 

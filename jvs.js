@@ -1,19 +1,21 @@
 //code for page display
 function hideElementsExceptX(elem) {
-    let everyChild = document.querySelectorAll(".rightPanel");
-    for (let i = 0; i < everyChild.length; i++) {
-        if (everyChild[i].id !== elem) {
-            everyChild[i].style.display = "none";
+    let elemrightPanel = document.getElementsByClassName("rightPanel");
+	let childelem = elemrightPanel[0].children;
+    for (let i = 0; i < childelem.length; i++) {
+        if (childelem[i].id !== elem) {
+            childelem[i].style.display = "none";
         } else {
-            everyChild[i].style.display = "block";
+            childelem[i].style.display = "block";
         }
     }
 }
 
 function showAllElements(elem) {
-    let everyChild = document.querySelectorAll(".rightPanel");
-    for (let i = 0; i < everyChild.length; i++) {
-		everyChild[i].style.display = "block";
+    let elemrightPanel = document.getElementsByClassName("rightPanel");
+	let childelem = elemrightPanel[0].children;
+    for (let i = 0; i < childelem.length; i++) {
+		childelem[i].style.display = "block";
     }
 }
 
@@ -74,10 +76,11 @@ function pls(x,y,numLV){ //performs partial least squares regression, based on N
     let W = createMatrix(numLV,numCols);
     let T = createMatrix(numLV, numRows);
     let U = createMatrix(numLV,numRows);
-    
-    for (let i=0;numLV-1;i++){ //loop each component
-        var u = y;
-        var w = multiplyVecByMatrix(u,x);
+    for (let i=0;i<numLV-1;i++){ //loop each component
+        let u = y;
+        let w = multiplyVecByMatrix(u,x);
+		let normOfw = normOfVec(w);
+		w = w.map(a => a/normOfw);
         debugger;
     }
     
@@ -179,21 +182,56 @@ function multiplyVecByMatrix(vec,mat){
     let {rows:numRows2, cols:numCols2} = size(vec);
     if (numRows!=numRows2){
         console.log("Matrix and vector dimensions inconsistent.");
-        console.log("MAtrix dimensions: " + numRows + " X " + numCols);
-        console.log("MAtrix dimensions: " + numRows2 + " X " + numCols2);
-        debugger
+        console.log("Matrix dimensions: " + numRows + " X " + numCols);
+        console.log("Matrix dimensions: " + numRows2 + " X " + numCols2);
     }
     let result = Array(numCols-1);
-    
-    for (let i=0;i<numRows;i++){
-        tempcol=getColumnXOfMatrix(mat,i); //get the column of matrix
-        tempcol2=multiplyVecByValue(tempcol,vec[i]); //multiply each element of column by each value of vec
-        result[i]=cumSumArray(tempcol2); // sum cumulatively the array to get the desired value
-        debugger;
+    let accu = createMatrix(numRows,1);
+    for (let i=0;i<numCols;i++){
+        let tempcol=getColumnXOfMatrix(mat,i); //get the column of matrix
+		for (let j=0; j<numRows;j++) {
+			accu[j] = vec[j]*tempcol[j];
+		}
+        
+        result[i]=cumSumArray(accu); // sum cumulatively the array to get the desired value
     }
     return result;
 }
     
+function multiplyMatrixByVec(mat,v){ //need to do this function
+	
+	    let {rows:numRows, cols:numCols} = size(mat);
+    let {rows:numRows2, cols:numCols2} = size(vec);
+    if (numRows!=numRows2){
+        console.log("Matrix and vector dimensions inconsistent.");
+        console.log("Matrix dimensions: " + numRows + " X " + numCols);
+        console.log("Matrix dimensions: " + numRows2 + " X " + numCols2);
+    }
+    let result = Array(numoRows-1);
+    let accu = createMatrix(numRows,1);
+    for (let i=0;i<numCols;i++){
+        let tempcol=getColumnXOfMatrix(mat,i); //get the column of matrix
+		for (let j=0; j<numRows;j++) {
+			accu[j] = vec[j]*tempcol[j];
+		}
+        
+        result[i]=cumSumArray(accu); // sum cumulatively the array to get the desired value
+    }
+    return result;
+}
+
+function tranpose(mat){
+	let {rows:numRows, cols:numCols} = size(mat);
+	let newmat = createMatrix(numCols, numRows);
+	
+	for (i=0;i<numCols;i++){
+		let tempcol=getColumnXOfMatrix(mat,i);
+		newmat[i]=tempcol;
+	}
+	return newmat;
+}
+
+
 function divideMatrixbyVec(mat,vec){
     let {rows:numRows, cols:numCols} = size(mat);
     let {rows:numRows2, cols:numCols2} = size(vec);
@@ -235,6 +273,15 @@ function mean(X){
         }
     return meanX;
 }
+
+
+function normOfVec(vec){
+	let b = vec.map(a => a*a);
+	let cumu = cumSumArray(b);
+	
+	return Math.sqrt(cumu);
+}
+
 
 function arraySTD(vec){
     let  value=0.0;
