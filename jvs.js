@@ -61,34 +61,85 @@ function getDataFromScreen(){
     //end get user data
     
     var xp=preprocessing(x,prepro);//preprocess x
+ 	var xp=preprocessing(x,"mean");//preprocess x
     y=autoscale(y); //autoscale y
-    pls(xp,y,lv);
+    let {T: T, U: U, P: P, W: W, Q: Q} = pls(xp,y,lv);
+	
+	//write solution to textareas
+	writeResultsToscreen(T,"TData");
+	writeResultsToscreen(U,"UData");
+	writeResultsToscreen(P,"PData");
+	writeResultsToscreen(W,"WData");
+	writeResultsToscreen(Q,"QData");
     debugger
     //read spectral data from screen
 }
 
-
+function writeResultsToscreen(variable,screenID){
+	document.getElementById(screenID).value = variable.join("\n").split(",").join("\t");
+}
 //pls function
 
 function pls(x,y,numLV){ //performs partial least squares regression, based on NIPALS algorithm. This is PLS1 only
     //initialize variables, code based on itoolbox for Matlab by Noorgard
     let {rows:numRows, cols:numCols}=size(x);
+	//set maximum numberr of LVS safegard
+	if (numLV>numRows){
+		debugger
+		numLV=numRows};
+	if (numLV>numCols){
+		debugger
+		numLV=numCols};
     let P = createMatrix(numLV,numCols);
     let Q = createMatrix(numLV,1);
     let W = createMatrix(numLV,numCols);
     let T = createMatrix(numLV, numRows);
     let U = createMatrix(numLV,numRows);
-    for (let i=0;i<numLV-1;i++){ //loop each component
+	let bsco= createMatrix(numLV,1);
+    for (let i=0;i<numLV;i++){ //loop each component
+		//perform pls of one component
         let u = y;
         let w = multiplyVecByMatrix(u,x);
 		let normOfw = normOfVec(w);
 		w = w.map(a => a/normOfw);
-        debugger;
+		let t = multiplyMatrixByVec(x,w);
+		//p=(t'*x)/(t'*t);
+		let p1 = multiplyVecByMatrix(t,x); //(t'*x)
+		let p2 = multiplyVecTransposedByVec(t,t);//(t'*t);
+		let p = p1.map((a)=>a/p2); //(t'*x/(t'*t))'
+		let p_norm=normOfVec(p);
+		t = t.map((a)=>a*p_norm);
+		w = w.map((a)=>a*p_norm);
+		p = p.map((a)=>a/p_norm);
+		let q =1;
+		//end pls for one compoennt
+		bsco1=multiplyVecTransposedByVec(u,t);
+		bsco2=multiplyVecTransposedByVec(t,t);
+		bsco[i] = bsco1/bsco2;
+		let deflation=mutiplyVecByVecTransposed(t,p);
+		x = subtractMatrixByMatrix(x,deflation);
+		let y1 = t.map((a)=>bsco[i]*a*q); //bsco[:,i]*t*q'
+		y = y.map((a,b)=>a-y1[b]);
+		
+		T[i]=t;
+		U[i]=u;
+		P[i]=p;
+		W[i]=w;
+		Q[i]=q;
     }
-    
+    return { T: T, U: U, P: P, W: W, Q: Q};
 }
 
-
+				  
+				  function multiplyVecByVecTranposed(vec1,vec2){
+			
+		}
+				  
+function subtractMatrixByMatrix(mat1,mat2){
+	
+	let result=mat1.map((a,b)=>a.map((c,d)=>c-mat2[b][d]));
+	return result;
+}
 function plsOneComponent(x,y){
     
     return 1;
@@ -102,6 +153,13 @@ function createMatrix(nrows,ncols){
     }
 }
 
+
+function mutiplyVecByVecTransposed(vec1,vec2){
+	let {rows:numRows, cols:numCols} = size(vec1);
+    let {rows:numRows2, cols:numCols2} = size(vec2);
+	let result=vec1.map((a) => multiplyVecByValue(vec2,a));
+	return result;
+}
 
 //preprocessings:
 
@@ -134,6 +192,11 @@ function autoscale(X) {
 }
 
 
+function multiplyVecTransposedByVec(vec1,vec2){
+	let temp1=vec1.map((a,i)=>vec2[i]*a);
+	let result=cumSumArray(temp1);
+	return result;
+}
 
 function copyMatrix(X){ //copy a matrix so that it can be passed by value
     let {rows:numRows, cols:numCols} = size(X);
@@ -200,23 +263,22 @@ function multiplyVecByMatrix(vec,mat){
     return result;
 }
     
-function multiplyMatrixByVec(mat,v){ //need to do this function
+function multiplyMatrixByVec(mat,vec){ //need to do this function
 	
-	    let {rows:numRows, cols:numCols} = size(mat);
+	let {rows:numRows, cols:numCols} = size(mat);
     let {rows:numRows2, cols:numCols2} = size(vec);
-    if (numRows!=numRows2){
+    if (numCols!=numRows2){
         console.log("Matrix and vector dimensions inconsistent.");
         console.log("Matrix dimensions: " + numRows + " X " + numCols);
         console.log("Matrix dimensions: " + numRows2 + " X " + numCols2);
     }
-    let result = Array(numoRows-1);
-    let accu = createMatrix(numRows,1);
-    for (let i=0;i<numCols;i++){
-        let tempcol=getColumnXOfMatrix(mat,i); //get the column of matrix
-		for (let j=0; j<numRows;j++) {
-			accu[j] = vec[j]*tempcol[j];
+    let result = Array(numCols-1);
+    let accu = createMatrix(1,numCols);
+    for (let i=0;i<numRows;i++){
+        let tempRow=mat[i]; //get the column of matrix
+		for (let j=0; j<numCols;j++) {
+			accu[j] = vec[j]*tempRow[j];
 		}
-        
         result[i]=cumSumArray(accu); // sum cumulatively the array to get the desired value
     }
     return result;

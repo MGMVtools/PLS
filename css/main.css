@@ -1,104 +1,88 @@
-
-
-body{
+body {
 	/*height:1000vh;*/
-	margin:0px;
-	display:grid;
-	grid-template-columns: 10% 1fr;
+	margin: 0px;
+	display: grid;
+	/*grid-template-columns: 1fr 9fr;
 	grid-template-rows: 1fr;
-	grid-template-areas: "box1 box2";
+	/*grid-template-areas: "box1 box2";*/
 	overflow: auto;
-	height:100vh;
-	margin-bottom: 0px;
-	font-size:16px;
+	/*height: 100vh;
+	margin-bottom: 0px;*/
+	font-size: 16px;
 }
-
 
 /* bottom of page, date*/
-#footer{    
-    position: fixed;
-    left:0px;
-    bottom:0px;
-    width:100%;
-    text-align: center;
+#footer {
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
 	background-color: white;
-	z-index:1;
+	z-index: 1;
 }
 
-/* The sidebar menu code from: 
-https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
+/* The sidebar*/
 .sidenav {
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    /*width: 10%; /* Set the width of the sidebar */
-    /*position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    /*z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    background-color: #111; /* Black */
-    /*overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px; 
+	height: 100%; /* Full-height: remove this if you want "auto" */
+	width:10%;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	padding-top: 20px;
 	grid-area: box1;
-	margin-bottom:0px;
-	/*min-width:200px;*/
-	bottom:0px
-		position:fixed;
+	margin-bottom: 0px;
+	bottom: 0px;
+	display:block;
 	z-index: 10;
-
-  
+	text-align: justify;
+	position:fixed;
+	overflow-x: hidden;
 }
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 2vw;
-  color: #818181;
-    display: block;
+	padding: 4% 11vw 2% 10%;
+	text-decoration: none;
+	font-size: 2vw;
+	color: #818181;
+	float:left;
 }
-
-.sidenav a:hover{
+#sidenavMorePadding{
+	margin-top:20vh;
+}
+.sidenav a:hover {
 	background-color: darkgrey;
-	color:white;
+	color: white;
 }
-
-
-
-
 
 /*right side of panel*/
-.rightPanel{
-    background-color: white;
-    /*margin-left:11%;*/
-    /*position:relative;
-    /*width:90%;*/
-    float:left;
-    /*display: none;*/
-	margin-right:100px;
-	margin-left: 30px;
-    top: 10px;
-	display:block;
-}
-
-
-.rightPanel.displayed{
-    /*display:block;*/
+.rightPanel {
+	background-color: white;
+	float: left;
+	margin-right: 5%;
+	margin-left: 12%; /*a bit more than sidenav*/
+	top: 10px;
+	display: block;
+	text-align: justify;
+	max-width:1000px;
 }
 
 /*for buttons to links*/
-.botoes{
-    color:grey;
-    background-color: transparent;
-    border:none;
-	font-size:20px;
-	font-style:italic;
-	border:2px;
-    
-}
-/*text area for pasting data*/
-textarea {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
+.botoes {
+	color: grey;
+	background-color: transparent;
+	border: none;
+	font-size: 20px;
+	font-style: italic;
+	border: 2px;
+
 }
 
+/*text area for pasting data*/
+textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+}
