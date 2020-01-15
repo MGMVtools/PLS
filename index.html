@@ -1,3 +1,111 @@
+<<<<<<< HEAD
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>MV001 PLS</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script type="text/javascript" src="jvs.js"></script>
+	<script type="text/javascript" src="preprocessing.js"></script>
+	<script type="text/javascript" src="PLS.js"></script>
+	<script type="text/javascript" src="mathfunctions.js"></script>
+	<title>Online PLS Partial Least Squares</title>
+</head>
+
+<body>
+
+	<div class="sidenav">
+		<a onclick="hideElementsExceptX('RPabout')">About</a>
+		<a onclick="hideElementsExceptX('RPsettings')">Settings</a>
+		<a onclick="hideElementsExceptX('RPdata')">Data</a>
+		<a onclick="hideElementsExceptX('RPVecResults')">Regression solution</a>
+		<a onclick="hideElementsExceptX('RPPrediction')">Prediction</a>
+		<a id="sidenavMorePadding" onclick="showAllElements()">Show&nbsp;all</a>
+	</div>
+
+	<div class="rightPanel">
+		<div id="RPabout">
+			<h1> About</h1>
+			<p>This is an online tool developed so that anyone can use the Partial Least Squares algorithm (Herman Wold, "Partial Least Squares") without needing to install any software.</p>
+			<p>This tool can be used for educational purposes, testing, or developing computer software at free will, regarding that due credit is provided.</p>
+			<p>This website does not collect any third- or second- party data, neither do I (the author) collect or get access to any data. The code is run using your browser built-in javascript interpreter and no data is upload to any server. Use this tool at your responsibility, I will not be held responsible for any problem encountered with the code. The most important step in any data analysis technique is to interpret the results and check their validity.</p>
+			<p>Nevertheless, if you find anything that needs to be fixed, or any suggestion that you would like to make, do not hesitate to contact me so that I can further improve this tool.</p>
+			<p>	Go to <a><button type="button" class="botoes" onclick="hideElementsExceptX('RPsettings')"> Settings </button></a> to provide the necessary information for model creation.</p>
+		</div>
+
+		<div id="RPsettings">
+			<h1> Settings</h1>
+			<p>Please fill all the necessary data settings</p>
+			<form>
+				<p>Number of Latent variables (keep this number below the number of observations):<a><input type="number" id="LVinput" value=4></a></p>
+				Pre-processing (only mean centering available):<a>
+				<select id="preproOption">
+					<option value="mean">Mean-centering</option>
+					<option value="auto">Auto-scale</option>
+				</select><br>
+				</a>
+			</form>
+				
+			<p>Go to <a><button class="botoes" type="button" onclick="hideElementsExceptX('RPdata')"> Data </button></a> and paste the data values</p>
+		</div>
+
+
+		<div id="RPdata">
+			<h1>Data</h1>
+			<p> After clicking in "Calculate Solution", scroll down or click on <a><button class="botoes" type="button" onclick="hideElementsExceptX('RPVecResults')"> Regression solution </button></a> tab. Note that Y vector is always autoscaled and X vector is always mean-center, even if you select another preprocessing.<br /><br /><a><button type="button" onclick="getDataFromScreen()">Calculate vectors</button></a>
+			</p>
+			<p>Provide X data below:</p>
+			<textarea placeholder="Paste X data here. Rows are observations (or samples), columns are measurements (or wavelength). Columns should be separated by tabs and rows by linebreks." rows="10" cols="100" id="spectralData">3	3	45	4	4	5
+3	4	3	5	5	4
+4	4	2	5	4	2
+3	4	4	5	6	43
+3	4	5	6	4	5
+			</textarea>
+			<p>Provide Y data below:</p>
+			<textarea placeholder="Paste Y data here. Values should be separated by linebreaks." rows="10" cols="5" id="YData">1
+2
+3
+4
+5
+			</textarea>
+		</div>
+
+		<div id="RPVecResults">
+			<h1>Regression solution</h1>
+
+			<p>Each line represents a latent variable. Copy them to a file to save them.</p>
+			<p margin="60px 60px 60px 60px">Mean of Y:<a><input type="number" id="meanY" value=""></a></p>
+			<p>Standard deviation of Y:<a><input type="number" id="stdY" value=""></a></p>
+			<p>Mean of X (already pre-processed):</p>
+			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="XmeanData"></textarea>
+			<p>T:</p>
+			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="TData"></textarea>
+			<p>U:</p>
+			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="UData"></textarea>
+			<p>P:</p>
+			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="PData"></textarea>
+			<p>W:</p>
+			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="WData"></textarea>
+			<p>Q:</p>
+			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="QData"></textarea>
+			
+		</div>
+
+
+	<div id="RPPrediction">
+			<h1>Prediction</h1>
+		<p>----Not implemented yet.</p>
+
+	</div>
+	</div>
+	<div id="footer">
+		<a>Version 2019-jan-15, Miguel Gonçalves, <a href="mailto:fergonsil1@gmail.com">fergonsil1@gmail.com</a></a>
+	</div>
+</body>
+
+</html>
+=======
 <!doctype html>
 <html lang="en">
 
@@ -81,3 +189,4 @@
 </body>
 
 </html>
+>>>>>>> 1c7e4b5e80f05925a3e7eb486647308352541144
