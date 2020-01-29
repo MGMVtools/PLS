@@ -55,8 +55,40 @@ function pls(x, y, numLV) { //performs partial least squares regression, based o
 		U: U,
 		P: P,
 		W: W,
-		Q: Q
+		Q: Q,
+		bsco:bsco
 	};
 }
 
 
+
+
+function PLSprediction(xpred,bsco,P,Q,W,lv,meanY,stdY){
+	let ypred=PLSSubPrediction(xpred, bsco, P, Q, W, lv);
+	ypred=scaleback(ypred,meanY,stdY);
+	return ypred
+}
+
+
+
+function PLSSubPrediction(xpred, bsco, P, Q, W, lv) {
+	let {
+		rows: xRows,
+		cols: xCols
+	} = size(xpred);
+	let t_hat = createMatrix(lv, xRows);
+	let ypred = createMatrix(lv, xRows);
+	//initialize temp with zeros
+	let temp = Array(xRows).fill(0);
+	temp=temp.map((a)=>0);
+	for (let i = 0; i < lv; i++) {
+		t_hat[i] = multiplyMatrixByVec(xpred, W[i]);
+		let xpred1 = multiplyVecVerticalByVecHorizontal(t_hat[i], P[i]);
+		xpred = subtractMatrixByMatrix(xpred, xpred1);
+		let temp1 = multiplyVecByValue(t_hat[i], bsco[i]);
+		let temp2 = multiplyVecByValue(temp1, Q[i]);
+		temp=temp.map((a,b)=>a+temp2[b]);
+		ypred[i] = temp;
+	}
+	return ypred;
+}

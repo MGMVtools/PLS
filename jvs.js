@@ -1,10 +1,8 @@
 //code for page display
 function hideElementsExceptX(elem) {
-	debugger
 	let elemrightPanel = document.getElementsByClassName("rightPanel");
 	let childelem = elemrightPanel[0].children;
 	for (let i = 0; i < childelem.length; i++) {
-		debugger
 		if (childelem[i].id !== elem) {
 			childelem[i].style.display = "none";
 		} else {
@@ -57,7 +55,7 @@ function readYData() {
 	return y;
 }
 
-function getDataFromScreen() {
+function getDataFromScreenPrediction() {
 	//get user data on screen
 	let lv = readNumberOfLV();
 	let prepro = readPreproName();
@@ -67,16 +65,28 @@ function getDataFromScreen() {
 
 	var xp = preprocessing(x, prepro); //preprocess x
 	var xp = preprocessing(x, "mean"); //preprocess x
-	meanY=mean(y);
-	stdY=arraySTD(y);
-	y = autoscale(y); //autoscale y
+	
+	let meanY=mean(y);
+	let stdY=arraySTD(y);
+	let yp = autoscale(y); //autoscale y
+	
 	let {
 		T: T,
 		U: U,
 		P: P,
 		W: W,
-		Q: Q
-	} = pls(xp, y, lv);
+		Q: Q,
+		bsco:bsco
+	} = pls(xp, yp, lv);
+	
+	
+	
+	//prediction
+	
+	let ypred=PLSprediction(xp,bsco,P,Q,W,lv,meanY,stdY);
+	let lr =linearRegression(y,ypred[0]);
+	let rmsec=RMSEcalc(y,ypred[1]);
+	
 	
 	
 	//write solution to textareas
@@ -88,12 +98,68 @@ function getDataFromScreen() {
 	writeResultsToscreen(xp, "XmeanData");
 	document.getElementById("meanY").value=meanY;
 	document.getElementById("stdY").value=stdY;
+	document.getElementById("txtrsquaredc").value=lr['r2'];
+	document.getElementById("txtrmsec").value=rmsec;
+	
 	//read spectral data from screen
 }
+
+
+
+
+function getDataFromScreen() {
+	//get user data on screen
+	let lv = readNumberOfLV();
+	let prepro = readPreproName();
+	let x = readSpectralData();
+	let y = readYData();
+	//end get user data
+
+	var xp = preprocessing(x, prepro); //preprocess x
+	var xp = preprocessing(x, "mean"); //preprocess x
+	
+	let meanY=mean(y);
+	let stdY=arraySTD(y);
+	let yp = autoscale(y); //autoscale y
+	
+	let {
+		T: T,
+		U: U,
+		P: P,
+		W: W,
+		Q: Q,
+		bsco:bsco
+	} = pls(xp, yp, lv);
+	
+	
+	
+	//prediction
+	
+	let ypred=PLSprediction(xp,bsco,P,Q,W,lv,meanY,stdY);
+	let lr =linearRegression(y,ypred[0]);
+	let rmsec=RMSEcalc(y,ypred[1]);
+	
+	
+	
+	//write solution to textareas
+	writeResultsToscreen(T, "TData");
+	writeResultsToscreen(U, "UData");
+	writeResultsToscreen(P, "PData");
+	writeResultsToscreen(W, "WData");
+	writeResultsToscreen(Q, "QData");
+	writeResultsToscreen(xp, "XmeanData");
+	document.getElementById("meanY").value=meanY;
+	document.getElementById("stdY").value=stdY;
+	document.getElementById("txtrsquaredc").value=lr['r2'];
+	document.getElementById("txtrmsec").value=rmsec;
+	
+	//read spectral data from screen
+}
+
+
 
 function writeResultsToscreen(variable, screenID) {
 	document.getElementById(screenID).value = variable.join("\n").split(",").join("\t");
 }
-//pls function
 
 

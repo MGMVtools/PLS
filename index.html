@@ -28,9 +28,9 @@
 			<h1> About</h1>
 			<p>This is an online tool developed so that anyone can use the Partial Least Squares algorithm (Herman Wold, "Partial Least Squares") without needing to install any software.</p>
 			<p>This tool can be used for educational purposes, testing, or developing computer software at free will, regarding that due credit is provided.</p>
-			<p>This website does not collect any third- or second- party data, neither do I (the author) collect or get access to any data. The code is run using your browser built-in javascript interpreter and no data is upload to any server. Use this tool at your responsibility, I will not be held responsible for any problem encountered with the code. The most important step in any data analysis technique is to interpret the results and check their validity.</p>
+			<p>This website does not collect any third- or second- party data, neither do I (the author) collect or get access to any data. The code is run using your browser built-in javascript interpreter and no data is uploaded to any server. Use this tool at your responsibility, I will not be held responsible for any problem encountered with the code or solution provided by it. The most important step in any data analysis technique is to interpret the results and check their validity.</p>
 			<p>Nevertheless, if you find anything that needs to be fixed, or any suggestion that you would like to make, do not hesitate to contact me so that I can further improve this tool.</p>
-			<p>	Go to <a><button type="button" class="botoes" onclick="hideElementsExceptX('RPsettings')"> Settings </button></a> to provide the necessary information for model creation.</p>
+			<p> Go to <a><button type="button" class="botoes" onclick="hideElementsExceptX('RPsettings')"> Settings </button></a> to provide the necessary information for model creation.</p>
 		</div>
 
 		<div id="RPsettings">
@@ -39,13 +39,13 @@
 			<form>
 				<p>Number of Latent variables (keep this number below the number of observations):<a><input type="number" id="LVinput" value=4></a></p>
 				Pre-processing (only mean centering available):<a>
-				<select id="preproOption">
-					<option value="mean">Mean-centering</option>
-					<option value="auto">Auto-scale</option>
-				</select><br>
+					<select id="preproOption">
+						<option value="mean">Mean-centering</option>
+						<option value="auto">Auto-scale</option>
+					</select><br>
 				</a>
 			</form>
-				
+
 			<p>Go to <a><button class="botoes" type="button" onclick="hideElementsExceptX('RPdata')"> Data </button></a> and paste the data values</p>
 		</div>
 
@@ -70,9 +70,21 @@
 			</textarea>
 		</div>
 
+
+
 		<div id="RPVecResults">
+
+
 			<h1>Regression solution</h1>
 
+			<p>NOTE: After calculating all parameters for the PLS model, you can go to <a><button type="button" class="botoes" onclick="hideElementsExceptX('RPPrediction')"> Prediction </button></a> and use the calculated parameters to make predictions.</p>
+
+
+			<h2>Calibration performance:</h2>
+			<p>R<sup>2</sup> = &emsp; <input id="txtrsquaredc" type="number" value="0" readonly></p>
+			<p>Root Mean Square Error of Calibration(RMSEC) = &emsp; <input id="txtrmsec" type="number" value="0" readonly></p>
+
+			<h2>Vectors solution:</h2>
 			<p>Each line represents a latent variable. Copy them to a file to save them.</p>
 			<p margin="60px 60px 60px 60px">Mean of Y:<a><input type="number" id="meanY" value=""></a></p>
 			<p>Standard deviation of Y:<a><input type="number" id="stdY" value=""></a></p>
@@ -88,18 +100,37 @@
 			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="WData"></textarea>
 			<p>Q:</p>
 			<textarea placeholder="Calculate vectors to populate this field" rows="10" cols="5" id="QData"></textarea>
-			
+
 		</div>
 
 
-	<div id="RPPrediction">
+		<div id="RPPrediction" class="borderForRightPanel">
 			<h1>Prediction</h1>
-		<p>----Not implemented yet.</p>
-
-	</div>
+			
+			<p>----Feature not yet fully implemented!---</p>
+			<p>To perform predictions you need to calculate the vectors in section <a><button class="botoes" type="button" onclick="hideElementsExceptX('RPVecResults')"> Regression solution </button></a>. Then provide X of validation data to apply the model, if you provide an Y, the algorithm also calculates the RMSE and R<sup>2</sup> of prediction.</p>
+			<p> To calculate prediction data click on</p>
+			<p>Provide X validation data below:</p>
+			<textarea placeholder="Paste X data here. Rows are observations (or samples), columns are measurements (or wavelength). Columns should be separated by tabs and rows by linebreks." rows="10" cols="100" id="XDataVal">3	3	45	4	4	5
+3	4	3	5	5	4
+4	4	2	5	4	2
+3	4	4	5	6	43
+3	4	5	6	4	5
+			</textarea>
+			<p>Provide Y validation data below if you want to calculate validation data, Otherwise do not fill this textbox:</p>
+			<textarea placeholder="Paste Y data here. Values should be separated by linebreaks." rows="10" cols="5" id="YDataVal">1
+2
+3
+4
+5
+			</textarea>
+			<p>Y prediction:</p>
+			<textarea placeholder="Paste Y data here. Values should be separated by linebreaks." rows="10" cols="5" id="YDataVal"readonly class="textarea2">	
+			</textarea>
+		</div>
 	</div>
 	<div id="footer">
-		<a>Version 2019-jan-15, Miguel Gonçalves, <a href="mailto:fergonsil1@gmail.com">fergonsil1@gmail.com</a></a>
+		<a>Version 2019-jan-29, Miguel Gonçalves, <a href="mailto:fergonsil1@gmail.com">fergonsil1@gmail.com</a></a>
 	</div>
 </body>
 

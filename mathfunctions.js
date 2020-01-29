@@ -1,4 +1,50 @@
 
+
+function RMSEcalc(yref,ypred){
+	let accu=0;
+	for (let i=0; i<ypred.length;i++){
+		let temp1=yref[i]-ypred[i];
+		let temp2=temp1*temp1;
+		accu+=temp2;
+	}
+	let RMSE = accu/ypred.length;
+	RMSE = Math.sqrt(RMSE);
+	
+	return RMSE;
+}
+
+
+function linearRegression(y,x){ //function from https://stackoverflow.com/questions/6195335/linear-regression-in-javascript 20200125
+        var lr = {};
+        var n = y.length;
+        var sum_x = 0;
+        var sum_y = 0;
+        var sum_xy = 0;
+        var sum_xx = 0;
+        var sum_yy = 0;
+
+        for (var i = 0; i < y.length; i++) {
+
+            sum_x += x[i];
+            sum_y += y[i];
+            sum_xy += (x[i]*y[i]);
+            sum_xx += (x[i]*x[i]);
+            sum_yy += (y[i]*y[i]);
+        } 
+
+        lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n*sum_xx - sum_x * sum_x);
+        lr['intercept'] = (sum_y - lr.slope * sum_x)/n;
+        lr['r2'] = Math.pow((n*sum_xy - sum_x*sum_y)/Math.sqrt((n*sum_xx-sum_x*sum_x)*(n*sum_yy-sum_y*sum_y)),2);
+
+        return lr;
+}
+
+
+
+
+
+
+
 function subtractMatrixByMatrix(mat1, mat2) {
 	let result = mat1.map((a, b) => a.map((c, d) => c - mat2[b][d]));
 	return result;
@@ -33,6 +79,15 @@ function multiplyVecTransposedByVec(vec1, vec2) {
 	let result = cumSumArray(temp1);
 	return result;
 }
+
+
+function multiplyVecTransposedByVec(vec1, vec2) {
+	let temp1 = vec1.map((a, i) => vec2[i] * a);
+	let result = cumSumArray(temp1);
+	return result;
+}
+
+
 
 function copyMatrix(X) { //copy a matrix so that it can be passed by value
 	let {
@@ -247,4 +302,61 @@ function cumSumArray(vec) { //sum an array cumulatively
 	let val = 0.0;
 	val = vec.reduce((acc, val) => (acc + val));
 	return val;
+}
+
+
+
+function multiplyVecVerticalByVecHorizontal(vecV,vecH){
+	let {rows: numRows1,cols: numCols1} = size(vecV);
+	let {rows: numRows2,cols: numCols2} = size(vecH);
+	
+	
+	let resultmat=createMatrix(numRows1,numRows2);
+	
+	for (i=0;i<numRows1;i++){
+		resultmat[i]=multiplyVecByValue(vecH,vecV[i]);
+	}
+	return resultmat;
+}
+
+
+
+function multiplyMatrixElementWise(mat1,mat2){
+	let {rows: numRows1,cols: numCols1} = size(mat1);
+	let {rows: numRows2,cols: numCols2} = size(mat2);
+	
+	let matMulti=zeros(numRows1,numCols1);
+	
+	if (numRows1!=numRows2 || numCols1!=numCols2){
+		console.log("Matrix dimensions should be the same for elementwise multiplication")
+	} else{
+		for (i=0;i<numRows1;i++){
+			
+				matMulti[i]=mat1[i].map((a,j)=>a*mat2[i][j]);
+			
+		}
+	}
+	return matMulti;
+}
+function addMatrixElementWise(mat1,mat2){
+	let {rows: numRows1,cols: numCols1} = size(mat1);
+	let {rows: numRows2,cols: numCols2} = size(mat2);
+	
+	let matMulti=zeros(numRows1,numCols1);
+	
+	if (numRows1!=numRows2 || numCols1!=numCols2){
+		console.log("Matrix dimensions should be the same for elementwise multiplication")
+	} else{
+		for (i=0;i<numRows1;i++){
+				matMulti[i]=mat1[i].map((a,j)=>a+mat2[i][j]);
+		}
+	}
+	return matMulti;
+}
+
+
+function zeros(numRows,numCols){
+	let mat=createMatrix(numRows,numCols);
+	mat=mat.map((a)=>a.fill(0));
+	return mat;
 }

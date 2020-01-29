@@ -35,3 +35,26 @@ function meancenter(X){
     let Xmeancenter=subtract(X,meanX);
     return Xmeancenter;
 }
+
+
+function scaleback(X,meanX,stdX){
+	let {rows:numRows, cols:numCols}=size(X);
+	
+	//create standard deviation term, if you do not which to introduce the standard deviation term, provide stdX=1;
+	let stdTerm=zeros(numRows,numCols);
+	//create mean term
+	let meanXterm=zeros(numRows,numCols);
+	//get values to each term
+	if (numCols>1){ //check if more than one dimension
+		stdTerm.map((a)=>a.fill(stdX));
+		meanXterm.map((a)=>a.fill(meanX));
+	} else{
+		stdTerm.map((a)=>stdX);
+		meanXterm.map((a)=>meanX);
+	}
+	
+	let Xscaledtemp1=multiplyMatrixElementWise(X,stdTerm);
+	let xscaled=addMatrixElementWise(Xscaledtemp1,meanXterm)
+
+	return xscaled;
+}
